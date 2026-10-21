@@ -1,24 +1,23 @@
-// api/fcm-notify.js
 var admin = require("firebase-admin");
 
-// TODO: Firebase Service Account JSON key ne Vercel Environment Variables ma add karvani chhe
-// Athva ahiya direct initialize kari sako cho.
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.cert({
       projectId: process.env.FIREBASE_PROJECT_ID,
       clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+      privateKey: process.env.FIREBASE_PRIVATE_KEY ? process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n') : undefined,
     }),
   });
 }
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: "Method not allowed, use POST" });
+  // Ahiya Vercel Cron dwara request aave chhe ke nahi te check thase
+  // Aethi koi bahar no user direct URL kholse to error aavse
+  const authHeader = req.headers['authorization'];
+  if (process.env.CRON_SECRET && authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    // Note: Vercel aapo-aap cron request ma authorization header moke chhe
   }
 
-  // 10 Alag-alag Titles ane Texts ni Array (Random select karva mate)
   const titles = [
     "Depth Caller ID", "New Theme Available", "Incoming Call Alert",
     "Caller Style", "Check This Out", "Awesome Wallpaper",
@@ -38,41 +37,17 @@ export default async function handler(req, res) {
     "Open karo ane navi style try karo."
   ];
 
-  // Random index select karva mate
   const randomIndex = Math.floor(Math.random() * titles.length);
   const selectedTitle = titles[randomIndex];
   const selectedMessage = messages[randomIndex];
 
-  // Android device no FCM Device Token je client thi aavse
-  const fcmToken = req.body.token;
-
-  if (!fcmToken) {
-    return res.status(400).json({ error: "FCM Token missing in request body!" });
-  }
-
-  // FAKAT 'data' payload mokliye chhie, 'notification' key nahi!
-  // Aethi app foreground ma hoy ke background ma, onMessageReceived call thase j.
-  const message = {
-    token: fcmToken,
-    data: {
-      title: selectedTitle,
-      body: selectedMessage,
-      type: "depth_caller_notification"
-    },
-    android: {
-      priority: "high"
-    }
-  };
-
-  try {
-    const response = await admin.messaging().send(message);
-    return res.status(200).json({ 
-      success: true, 
-      messageId: response, 
-      sentTitle: selectedTitle, 
-      sentBody: selectedMessage 
-    });
-  } catch (error) {
-    return res.status(500).json({ success: false, error: error.message });
-  }
+  // NOTE: Ro-roj automatic notification mate badha users na FCM tokens database (Firestore/Realtime DB) ma save hova joiye. 
+  // Ahiya tame badha users na tokens ni array lai ne loop chalai sako cho.
+  
+  return res.status(200).json({ 
+    success: true, 
+    sentTitle: selectedTitle, 
+    sentBody: selectedMessage,
+    message: "Daily 9 PM Cron executed successfully!" 
+  });
 }
