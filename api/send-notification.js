@@ -11,23 +11,32 @@ if (!admin.apps.length) {
 }
 
 export default async function handler(req, res) {
+  // Professional & Attractive English Titles
   const titles = [
-    "Depth Caller ID", "New Theme Available", "Incoming Call Alert",
-    "Caller Style", "Check This Out", "Awesome Wallpaper",
-    "Update Your Look", "Special Caller ID", "Screen Design", "Caller Effect"
+    "Incoming Call Alert  incoming",
+    "New Depth Theme",
+    "Stunning Caller Screen",
+    "Upgrade Your Caller ID",
+    "Awesome 3D Effect",
+    "Exclusive Wallpaper",
+    "Set Your Live Theme",
+    "Smart Caller Design",
+    "Make Calls Stylish",
+    "New Look For Calls"
   ];
 
+  // Professional & Attractive English Messages
   const messages = [
-    "Tamara phone mate navo depth effect wallpaper aavi gyo chhe!",
-    "Caller screen par amazing look set karo.",
-    "Tamari call screen ne hve arakshit ane sundar banavo.",
-    "Click karine navi theme check karo.",
-    "Best caller ID background wait kare chhe.",
-    "Depth effect caller id theme update thi gai.",
-    "Tamaro phone hve alag j lagse.",
-    "Preview joyine turat apply karo.",
-    "Exclusive wallpaper caller ID mate.",
-    "Open karo ane navi style try karo."
+    "Transform your incoming call screen with stunning depth effects!",
+    "Check out the new trending wallpaper for your caller ID.",
+    "Make your phone look amazing with our new custom themes.",
+    "Give your caller screen a fresh and modern style today.",
+    "Experience the ultimate 3D depth effect on every call.",
+    "Discover exclusive HD wallpapers tailored for your caller ID.",
+    "Tap now to apply the most popular caller theme of the day.",
+    "Upgrade your default call screen with unique animations.",
+    "Stand out every time your phone rings with cool new designs.",
+    "Open the app now and explore today's top featured themes."
   ];
 
   const randomIndex = Math.floor(Math.random() * titles.length);
