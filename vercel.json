@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/fcm-notify",
+      "schedule": "30 15 * * *"
+    }
+  ]
+}
