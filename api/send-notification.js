@@ -11,13 +11,6 @@ if (!admin.apps.length) {
 }
 
 export default async function handler(req, res) {
-  // Ahiya Vercel Cron dwara request aave chhe ke nahi te check thase
-  // Aethi koi bahar no user direct URL kholse to error aavse
-  const authHeader = req.headers['authorization'];
-  if (process.env.CRON_SECRET && authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-    // Note: Vercel aapo-aap cron request ma authorization header moke chhe
-  }
-
   const titles = [
     "Depth Caller ID", "New Theme Available", "Incoming Call Alert",
     "Caller Style", "Check This Out", "Awesome Wallpaper",
@@ -41,13 +34,27 @@ export default async function handler(req, res) {
   const selectedTitle = titles[randomIndex];
   const selectedMessage = messages[randomIndex];
 
-  // NOTE: Ro-roj automatic notification mate badha users na FCM tokens database (Firestore/Realtime DB) ma save hova joiye. 
-  // Ahiya tame badha users na tokens ni array lai ne loop chalai sako cho.
-  
-  return res.status(200).json({ 
-    success: true, 
-    sentTitle: selectedTitle, 
-    sentBody: selectedMessage,
-    message: "Daily 9 PM Cron executed successfully!" 
-  });
+  const message = {
+    topic: "all_users",
+    data: {
+      title: selectedTitle,
+      body: selectedMessage,
+      type: "depth_caller_notification"
+    },
+    android: {
+      priority: "high"
+    }
+  };
+
+  try {
+    const response = await admin.messaging().send(message);
+    return res.status(200).json({ 
+      success: true, 
+      messageId: response, 
+      sentTitle: selectedTitle, 
+      sentBody: selectedMessage 
+    });
+  } catch (error) {
+    return res.status(500).json({ success: false, error: error.message });
+  }
 }
