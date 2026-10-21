@@ -11,7 +11,6 @@ if (!admin.apps.length) {
 }
 
 export default async function handler(req, res) {
-  // Professional & Attractive English Titles
   const titles = [
     "Incoming Call Alert  incoming",
     "New Depth Theme",
@@ -25,7 +24,7 @@ export default async function handler(req, res) {
     "New Look For Calls"
   ];
 
-  // Professional & Attractive English Messages
+  
   const messages = [
     "Transform your incoming call screen with stunning depth effects!",
     "Check out the new trending wallpaper for your caller ID.",
