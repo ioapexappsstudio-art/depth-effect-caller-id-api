@@ -1,7 +1,7 @@
 {
   "crons": [
     {
-      "path": "/api/fcm-notify",
+      "path": "/api/send-notification",
       "schedule": "30 15 * * *"
     }
   ]
