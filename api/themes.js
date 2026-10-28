@@ -53,7 +53,7 @@ export default function handler(req, res) {
           },
           {
             "id": 7,
-            "preview": "https://drive.google.com/file/d/1ySRIgqyApdoYYIffukwpl9P1ShOCY8_S/view?usp=drive_link",
+            "preview": "https://drive.google.com/file/d/1ZdkNeS16jqtx7iYk6PCxNcvJV2OiH8_X/view?usp=drive_link",
             "background": "https://drive.google.com/file/d/1FefVpj94v7ve4k0gG1aCIoLbf1xUTzxN/view?usp=drive_link",
             "frontImage": "https://drive.google.com/file/d/1VFCr2EAdUFzzGAPkSRwta1jlL5kkEX1S/view?usp=drive_link",
             "textColor": "#FFFFFF"
