@@ -55,7 +55,7 @@ export default function handler(req, res) {
             "id": 7,
             "preview": "https://drive.google.com/file/d/1ZdkNeS16jqtx7iYk6PCxNcvJV2OiH8_X/view?usp=drive_link",
             "background": "https://drive.google.com/file/d/1FefVpj94v7ve4k0gG1aCIoLbf1xUTzxN/view?usp=drive_link",
-            "frontImage": "https://drive.google.com/file/d/1K8tQdZbUF8iRmOxQegFXGauA7r2wQNFv/view?usp=drive_link",
+            "frontImage": "https://drive.google.com/file/d/1XAHNn2Jpj8QvWWWqAqG3haMlKGPx-Feu/view?usp=drive_link",
             "textColor": "#FFFFFF"
           },
           {
